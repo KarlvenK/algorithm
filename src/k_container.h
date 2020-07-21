@@ -145,6 +145,4 @@ namespace Karlven{
             std::vector<T>heap;
     };
 }
-
-
 #endif
