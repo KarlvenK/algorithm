@@ -32,7 +32,5 @@ namespace Karlven{
         }
         return left;
     }
-
-
 }
 #endif
