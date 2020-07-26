@@ -4,4 +4,4 @@
 ## 0.2
 >新增 lower_bound 和 upper_bound (都是O(logN))，基于二分的查找
 ## 0.3
->新增 大、小根堆(O(logN)级别的查询)
+>新增 max_heap和min_heap 支持O(1)查询堆中最大/最小值，O(logN)的插入，O(logN)的弹出堆顶部
