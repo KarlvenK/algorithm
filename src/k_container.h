@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 namespace Karlven{
+
     template<typename T>
     class binary_indexed_tree{//单点修改，区间求和
         private:
@@ -143,6 +144,94 @@ namespace Karlven{
             int heap_size;
             int heap_max;
             std::vector<T>heap;
+    };
+
+    template<typename T>
+    class segment_tree{
+        private:
+            class node{
+                public:
+                    int l,r,m;
+                    T sum,tag;
+            };
+        private:
+            std::vector<T>* a;
+            std::vector<node> seg_tr;
+            int maxn;
+        private:
+            void build_tree(int rt,int l,int r){
+                seg_tr[rt].l=l;
+                seg_tr[rt].r=r;
+                seg_tr[rt].m=(l+r)>>1;
+                seg_tr[rt].tag=0;
+                int mid=seg_tr[rt].m;
+                if(l==r){
+                    seg_tr[rt].sum=(*a)[l-1];
+                    return;
+                }
+                build_tree(rt<<1,l,mid);
+                build_tree(rt<<1|1,mid+1,r);
+                push_up(rt);
+                return;
+            }
+            void push_up(int rt){
+                seg_tr[rt].sum=seg_tr[rt<<1].sum+seg_tr[rt<<1|1].sum;
+                return;
+            }
+            void push_down(int rt,int m){
+                if(seg_tr[rt].tag){
+                    seg_tr[rt<<1].tag+=seg_tr[rt].tag;
+                    seg_tr[rt<<1|1].tag+=seg_tr[rt].tag;
+                    seg_tr[rt<<1].sum+=seg_tr[rt].tag*(m-(m>>1));
+                    seg_tr[rt<<1|1].sum+=seg_tr[rt].tag*(m>>1);
+                    seg_tr[rt].tag=0;
+                }
+            }
+            void update(int rt,int l,int r,T val){
+                if(seg_tr[rt].l==l && seg_tr[rt].r==r){
+                    seg_tr[rt].tag+=val;
+                    seg_tr[rt].sum+=val*(r-l+1);
+                    return;
+                }
+                push_down(rt,seg_tr[rt].r-seg_tr[rt].l+1);
+                if(r<=seg_tr[rt].m) update(rt<<1,l,r,val);
+                else
+                    if(l>seg_tr[rt].m) update(rt<<1|1,l,r,val);
+                    else{
+                        update(rt<<1,l,seg_tr[rt].m,val);
+                        update(rt<<1|1,seg_tr[rt].m+1,r,val);
+                    }
+                push_up(rt);
+            }
+            T ask(int rt,int l,int r){
+                if(seg_tr[rt].l==l && seg_tr[rt].r==r){
+                    return seg_tr[rt].sum;
+                }
+                push_down(rt,seg_tr[rt].r-seg_tr[rt].l+1);
+                T ret=0;
+                if(r<=seg_tr[rt].m) ret+=ask(rt<<1,l,r);
+                else
+                    if(l>seg_tr[rt].m) ret+=ask(rt<<1|1,l,r);
+                    else{
+                        ret+=ask(rt<<1,l,seg_tr[rt].m);
+                        ret+=ask(rt<<1|1,seg_tr[rt].m+1,r);
+                    }
+                return ret;
+            }
+        public:
+            segment_tree()=default;
+            segment_tree(std::vector<T>&arr):
+            a(&arr),maxn(arr.size()){
+                seg_tr.resize(maxn<<2+1);
+                build_tree(1,1,maxn);
+            }
+        public:
+            void add(int l,int r,T val){
+                update(1,l+1,r+1,val);
+            }
+            T query(int l,int r){
+                return ask(1,l+1,r+1);
+            }          
     };
 }
 #endif
