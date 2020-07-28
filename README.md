@@ -1,3 +1,3 @@
 # algorithm & data structure
 
-algorithms & data structure implementation
+algorithms & data structures implementation
