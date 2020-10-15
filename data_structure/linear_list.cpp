@@ -11,7 +11,9 @@
 #define list_increment 10
 
 typedef int elem_type;
+
 //--------------------------sequence_list------------------------
+
 typedef struct {
     elem_type* elem;
     int length;
@@ -157,6 +159,38 @@ void merge_list_l (link_list& La, link_list& Lb, link_list& Lc) {
     free(Lb); // free the head pointer of the link_list B cause link_list C's head pointer is A's;
 }
 
+//----------------------slinklist------------------------
+
+#define maxsize 1000
+
+struct sl_node {
+    elem_type data;
+    int cur;
+};
+
+typedef sl_node slink_list[maxsize];
+
+int locate_elem_sl (slink_list S, elem_type e) {
+    int i = S[0].cur;
+    while (i && S[i].data != e) i = S[i].cur;
+    return i;    
+}
+
+void init_space_sl (slink_list& S) {
+    for(int i = 0; i < maxsize -1; ++i) S[i].cur = i + 1;
+    S[maxsize - 1].cur = 0;
+}
+
+int malloc_sl (slink_list& S) {
+    int i = S[0].cur;
+    if(S[0].cur) S[0].cur = S[i].cur;
+    return i;
+}
+
+void free_sl (slink_list& s, int k) {
+    s[k].cur = s[0].cur;
+    s[0].cur = k; 
+}
 
 //--------------------------------------------
 void test_sq () {
