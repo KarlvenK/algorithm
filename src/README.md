@@ -8,3 +8,5 @@
 >新增 max_heap和min_heap（大、小根堆），支持O(1)查询堆中最大/最小值，O(logN)的插入，O(logN)的弹出堆顶部
 ## 0.4
 >新增 segment_tree(线段树)，支持O(logN)的区域数据修改、查询，lazy_tag减少没必要修改。
+## 0.5
+>新增shared_ptr实现
