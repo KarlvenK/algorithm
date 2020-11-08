@@ -10,3 +10,5 @@
 >新增 segment_tree(线段树)，支持O(logN)的区域数据修改、查询，lazy_tag减少没必要修改。
 ## 0.5
 >新增shared_ptr实现
+## 0.6
+>新增unique_ptr实现
