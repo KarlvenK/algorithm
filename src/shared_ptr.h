@@ -54,7 +54,7 @@ namespace Karlven {
             return ptr ? true : false;
         }
 
-        T& operator *() const{            //================================
+        T& operator *() const{
             return *ptr;
         }
 
@@ -87,7 +87,6 @@ namespace Karlven {
         }
         ~sharedPointer() {
             decrement_and_destroy();
-            //std::cout << 12312312312 << std::endl;
         }
 
     private:
@@ -97,7 +96,7 @@ namespace Karlven {
         auto decrement_and_destroy() {
             if (ptr && 0 == --reference_count) {
                 delete reference_count;
-                delete ptr;             //   =============may be bug================
+                delete ptr;
             }
             else 
                 if (!ptr) {
