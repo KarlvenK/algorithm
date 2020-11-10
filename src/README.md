@@ -14,3 +14,7 @@
 >新增unique_ptr实现
 
 >新增vec，类似STL的vector，但是目前无法做到类似vector<vector<T>>的嵌套
+
+## 0.7
+>新增multi_dimension_array，from vczh_toy，实现了地址连续的多维T类型数组
+  
