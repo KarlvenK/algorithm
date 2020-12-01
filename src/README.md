@@ -19,3 +19,5 @@
 >新增multi_dimension_array，from vczh_toy，实现了地址连续的多维T类型数组
 ## 0.8
 >新增trie树
+##0.9
+>新增red black tree(beta version)
